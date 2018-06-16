@@ -17,7 +17,7 @@ public class ServerTest {
     private static final String HOST = "localhost";
 
     @BeforeClass
-    public static void startServers() throws IOException {
+    public static void startServers() throws IOException, InterruptedException {
         BlockingServer blocking = new BlockingServer(BLOCKING_SERVER_PORT);
         NonblockingServer nonblocking = new NonblockingServer(NONBLOCKING_SERVER_PORT);
         SimpleServer simple = new SimpleServer(SIMPLE_SERVER_PORT);
@@ -27,7 +27,9 @@ public class ServerTest {
         t1.start();
         t2.start();
         t3.start();
-        while (true);
+        t1.join();
+        t2.join();
+        t3.join();
     }
 
     @Test

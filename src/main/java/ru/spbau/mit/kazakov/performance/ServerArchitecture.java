@@ -7,7 +7,7 @@ public enum  ServerArchitecture {
         @Override
         @NotNull
         String getHost() {
-            return "localhost";
+            return "192.168.43.107";
         }
 
         @Override
@@ -19,7 +19,7 @@ public enum  ServerArchitecture {
         @Override
         @NotNull
         String getHost() {
-            return "localhost";
+            return "192.168.43.107";
         }
 
         @Override
@@ -31,7 +31,7 @@ public enum  ServerArchitecture {
         @Override
         @NotNull
         String getHost() {
-            return "localhost";
+            return "192.168.43.107";
         }
 
         @Override
