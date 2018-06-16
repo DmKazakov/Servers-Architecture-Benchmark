@@ -1,0 +1,23 @@
+plugins {
+    id 'net.ltgt.apt' version '0.10'
+}
+
+group 'ru.spbau.mit.kazakov'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.5.1'
+    compile group: 'org.jetbrains', name: 'annotations', version: '13.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+    apt "org.projectlombok:lombok:1.16.20"
+}

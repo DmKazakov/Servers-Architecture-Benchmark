@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package ru.spbau.mit.kazakov;
+
+message Array {
+    required int32 size = 1;
+    repeated int32 element = 2;
+}
