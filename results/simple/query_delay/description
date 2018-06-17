@@ -1,0 +1,8 @@
+Architecture: SIMPLE
+Parameter: Queries delay
+Step: 100
+Max value: 2000
+Array size: 5000
+Number of clients: 10
+Query delay: 0
+Number of queries: 10

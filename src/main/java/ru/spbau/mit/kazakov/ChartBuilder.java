@@ -1,25 +1,29 @@
 package ru.spbau.mit.kazakov;
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ChartBuilder extends Application {
-    private static final String FIRST = "/home/dmitry/untitled1/answer_time";
-    private static final String SECOND = "/home/dmitry/untitled1/answer_time";
-    private static final String THIRD = "/home/dmitry/untitled1/answer_time";
-
+    private static final String FIRST = "/home/dmitry/javares/s/cliets/client_processing_time";
+    private static final String SECOND = "/home/dmitry/javares/bl/cliets/client_processing_time";
+    private static final String THIRD = "/home/dmitry/javares/nonbl/cliets/client_processing_time";
     private Scene chartScene;
 
     @Override
@@ -33,7 +37,7 @@ public class ChartBuilder extends Application {
 
     private void initializeChartScene() throws FileNotFoundException {
         NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Param");
+        xAxis.setLabel("Delay");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Time");
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
@@ -42,15 +46,16 @@ public class ChartBuilder extends Application {
         List<Pair<Integer, Double>> sDots = readDots(SECOND);
         List<Pair<Integer, Double>> tDots = readDots(THIRD);
 
-        XYChart.Series fSeries = createSeries("Arch1", fDots);
-        XYChart.Series sSeries = createSeries("Arch2", sDots);
-        XYChart.Series tSeries = createSeries("Arch3", tDots);
+        XYChart.Series fSeries = createSeries("Simple", fDots);
+        XYChart.Series sSeries = createSeries("Blocking", sDots);
+        XYChart.Series tSeries = createSeries("Nonblocking", tDots);
         lineChart.getData().addAll(fSeries, sSeries, tSeries);
 
         chartScene = new Scene(lineChart, 800, 600);
+        //saveAsPng(chartScene, "/home/dmitry/javares/pics/" + "clients-sort_time");
     }
 
-    private List<Pair<Integer, Double>> readDots(String fileName) throws FileNotFoundException {
+    private List<Pair<Integer, Double>> readDots(@NotNull String fileName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(fileName));
         int size = scanner.nextInt();
         List<Pair<Integer, Double>> dots = new ArrayList<>();
@@ -74,6 +79,16 @@ public class ChartBuilder extends Application {
         }
 
         return series;
+    }
+
+    public void saveAsPng(@NotNull Scene scene, @NotNull String path) {
+        WritableImage image = scene.snapshot(null);
+        File file = new File(path);
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

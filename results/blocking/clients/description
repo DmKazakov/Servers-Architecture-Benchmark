@@ -1,0 +1,8 @@
+Architecture: BLOCKING
+Parameter: Number of clients
+Step: 5
+Max value: 100
+Array size: 5000
+Number of clients: 10
+Query delay: 5
+Number of queries: 10

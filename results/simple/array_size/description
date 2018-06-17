@@ -1,0 +1,8 @@
+Architecture: SIMPLE
+Parameter: Array size
+Step: 500
+Max value: 10000
+Array size: 1000
+Number of clients: 10
+Query delay: 5
+Number of queries: 10
